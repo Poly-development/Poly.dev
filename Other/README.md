@@ -1,6 +1,7 @@
 # Other
 Various important information, photos, videos, and documents are stored here
-#ㅤ
+# ㅤ
+
 ## Accounts of association
 **Яндекс**
 >NNq-vEg-WLU-5F3
