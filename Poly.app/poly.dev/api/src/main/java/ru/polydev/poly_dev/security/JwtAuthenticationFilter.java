@@ -38,21 +38,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader(HEADER_NAME);
         if (authorizationHeader == null) {
-            throw new AccessDeniedException("The authorization header is missing");
+            logger.debug("The authorization header is missing");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         if (!authorizationHeader.startsWith(BEARER_PREFIX)) {
-            throw new AccessDeniedException("The bearer prefix is missing");
+            logger.debug("The bearer prefix is missing");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         String token = authorizationHeader.substring(BEARER_PREFIX.length());
 
         try {
             String subject = jwtService.getSubject(token);
-
-            if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(subject, null, AuthorityUtils.NO_AUTHORITIES));
-            }
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(subject, null, AuthorityUtils.NO_AUTHORITIES));
         } catch (IllegalArgumentException exception) {
             throw new AccessDeniedException("Illegal JWT token", exception);
         } catch (JwtException exception) {

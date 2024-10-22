@@ -1,11 +1,8 @@
 package ru.polydev.poly_dev.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -15,7 +12,7 @@ public class Questions {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "column", nullable = false)
+    @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "is_optional", nullable = false)
@@ -23,6 +20,8 @@ public class Questions {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
+
+    public Questions() {}
 
     public Long getId() {
         return id;

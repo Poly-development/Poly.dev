@@ -1,6 +1,15 @@
 package ru.polydev.poly_dev.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.List;
 
@@ -54,6 +63,8 @@ public class Users {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Questions> questions;
 
+    public Users() {}
+
     public Users(String firstName, String lastName, String middleName, String institute, String direction,
                  String course, String email, String password, String vk, String tg) {
         this.firstName = firstName;
@@ -66,6 +77,8 @@ public class Users {
         this.password = password;
         this.vk = vk;
         this.tg = tg;
+        this.isAdmin = false;
+        this.isActive = true;
     }
 
     public Long getId() {
