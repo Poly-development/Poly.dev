@@ -25,7 +25,7 @@ public class JwtService {
     }
 
     public String generateToken(Users user) {
-        Map<String, Object> claims = Map.of("isAdmin", user.getAdmin());
+        Map<String, Object> claims = Map.of("isAdmin", user.getIsAdmin());
 
         return Jwts.builder()
                 .subject(Long.toString(user.getId()))
