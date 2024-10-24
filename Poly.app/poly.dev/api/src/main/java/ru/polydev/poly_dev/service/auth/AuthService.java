@@ -1,5 +1,6 @@
 package ru.polydev.poly_dev.service.auth;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,11 @@ import ru.polydev.poly_dev.security.JwtService;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-
-    public AuthService(UsersRepository usersRepository,
-                       PasswordEncoder passwordEncoder,
-                       JwtService jwtService) {
-        this.usersRepository = usersRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
 
     public JwtResponse registerUser(SignUpRequest request) {
         if (usersRepository.existsByEmail(request.getEmail())) {

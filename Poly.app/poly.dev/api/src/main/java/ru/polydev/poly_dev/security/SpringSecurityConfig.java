@@ -29,6 +29,8 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers(HttpMethod.POST, "/auth/**").anonymous()
+                                .requestMatchers(HttpMethod.GET, "/questions").anonymous()
+                                .requestMatchers(HttpMethod.GET, "/users/has_answers").anonymous()
                                 .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
