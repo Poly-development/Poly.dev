@@ -4,8 +4,10 @@ import 'package:get_it/get_it.dart';
 
 import 'package:poly_dev/poly_dev_app.dart';
 import 'package:poly_dev/repositories/auth.dart';
+import 'package:poly_dev/repositories/questions.dart';
+import 'package:poly_dev/repositories/users.dart';
 
-const apiURL = "http://192.168.0.143:8080";
+const apiURL = "http://10.0.2.2:8080";
 const connectionTimeout = 15;
 
 Dio initDio() {
@@ -20,6 +22,8 @@ Dio initDio() {
 void registerSingletons() {
   GetIt.I.registerSingleton(initDio());
   GetIt.I.registerSingleton(AuthRepository());
+  GetIt.I.registerSingleton(QuestionsRepository());
+  GetIt.I.registerSingleton(UsersRepository());
 }
 
 void main() {

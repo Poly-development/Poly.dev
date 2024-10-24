@@ -13,17 +13,21 @@ part 'register_page_state.dart';
 
 class RegisterPageBloc extends Bloc<RegisterPageEvent, RegisterPageState> {
   final BuildContext context;
+  final authRepository = GetIt.I<AuthRepository>();
 
   RegisterPageBloc(this.context) : super(RegisterPageInitState()) {
     on<TryRegisterUserEvent>(
       (event, emit) async {
         emit(RegisterPageLoadingState());
 
-        JwtResponse jwtResponse;
         try {
-          jwtResponse = await GetIt.I<AuthRepository>().register(event.request);
+          var jwtResponse = await authRepository.register(event.request);
+
           log("Successful registration");
           log("Token: ${jwtResponse.token}");
+
+          _openQuestionnairePage();
+          return;
         } on DioException catch (e) {
           log("Registration error");
           log("${e.message}");
@@ -31,6 +35,13 @@ class RegisterPageBloc extends Bloc<RegisterPageEvent, RegisterPageState> {
 
         emit(RegisterPageInitState());
       },
+    );
+  }
+
+  void _openQuestionnairePage() {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/questionnaire',
+      (route) => false,
     );
   }
 }
